@@ -313,14 +313,14 @@ function matchIntent(query) {
 function linkifyResponse() {
     const raw = box.textContent;
 
-    const html = raw
-        .replace(/(\/[a-zA-Z0-9\-]+\.html)/g, (match) => {
-             const full = `/werevise${match}`;
-            return `<a href="${match}" class="ask-link">${match}</a>`;
-        });
+    const html = raw.replace(/(\/[a-zA-Z0-9\-]+\.html)/g, (match) => {
+        const full = `/werevise${match}`;
+        return `<a href="${full}" class="ask-link">${full}</a>`;
+    });
 
     box.innerHTML = html;
 }
+
 
 /* ------------------------------------------------------------
    5. Typewriter premium
