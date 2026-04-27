@@ -244,7 +244,7 @@ Il analyse ta question, détecte les mots‑clés pertinents et génère une ré
     patterns: [],
     answers: [
         `Je n’ai pas encore la réponse à cette question. 
-Tu peux me parler des fiches, des chapitres, des matières, de Supabase, des cookies, des CGU, du feedback ou des entraînements.`
+Tu peux me parler des fiches, des chapitres, des matières, de ✦ASK, de Supabase, des cookies, des CGU, du feedback ou des entraînements.`
     ]
 }
 
