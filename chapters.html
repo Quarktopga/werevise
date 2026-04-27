@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Revise — Chapitres</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="chapters">
+
+    <!-- HEADER dynamique -->
+    <header></header>
+
+    <div class="page-container">
+        <main>
+            <h2 id="subject-title">Chapitres</h2>
+
+            <div class="chapter-list"></div>
+
+            <button class="btn" id="add-chapter-btn">+ Ajouter un chapitre</button>
+        </main>
+    </div>
+    
+
+    <!-- FOOTER dynamique -->
+    <footer></footer>
+ 
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="header-footer.js"></script>
+<script src="app.js"></script>
+
+    <script>
+        // Gestion du bouton "Ajouter un chapitre"
+        document.addEventListener("DOMContentLoaded", () => {
+            const subject = JSON.parse(localStorage.getItem("currentSubject"));
+            document.getElementById("subject-title").textContent = subject.name;
+
+            document.getElementById("add-chapter-btn").onclick = async () => {
+                const name = prompt("Nom du chapitre :");
+                if (!name) return;
+
+                await createChapter(subject.id, name);
+            };
+        });
+    </script>
+
+<script src="analytics.js"></script>
+</body>
+</html>

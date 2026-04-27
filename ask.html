@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Revise — ✦ASK</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ask.css">
+</head>
+
+<body data-page="ask">
+    <!-- HEADER dynamique -->
+    <header></header>
+
+    <div class="page-container ask-page">
+        <main class="ask-main">
+            <section class="ask-hero">
+                <h2 class="ask-title">✦ASK — Assistant We Revise</h2>
+                <p class="ask-subtitle">
+                    Pose une question sur We Revise. ASK te répond avec des explications claires et des liens vers les bonnes pages.
+                </p>
+            </section>
+
+            <section class="ask-panel">
+                <div class="ask-input-row">
+                    <input
+                        id="ask-input"
+                        type="text"
+                        placeholder="Ex : Comment ajouter une fiche, c’est quoi We Revise, où trouver les entraînements…"
+                        autocomplete="off"
+                    />
+                    <button id="ask-btn" class="ask-btn">Envoyer</button>
+                </div>
+
+                <div id="ask-response" class="ask-response">
+                    <span class="ask-placeholder">ASK est prêt. Pose ta première question.</span>
+                </div>
+
+                <p class="ask-note">
+                    ✦ASK répond uniquement à des questions sur We Revise. Les requêtes peuvent être enregistrées pour améliorer l’assistant et le fonctionnement global de la plateforme. Ne partage aucune information personnelle ou sensible.
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <!-- FOOTER dynamique -->
+    <footer></footer>
+
+    <script src="header-footer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="ask.js"></script>
+    <script src="analytics.js"></script>
+</body>
+</html>

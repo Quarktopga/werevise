@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Quiz – Première Guerre mondiale</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+    body {
+        font-family: system-ui, sans-serif;
+        background: #fafafa;
+        margin: 0;
+        padding: 20px;
+        color: #222;
+    }
+
+    .card {
+        max-width: 600px;
+        margin: auto;
+        background: white;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+        margin-top: 0;
+        font-weight: 600;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 12px 18px;
+        background: #0066ff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #0050d4;
+    }
+
+    .result {
+        margin-top: 15px;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .ok {
+        background: #d4f8d4;
+        color: #0a7a0a;
+    }
+
+    .bad {
+        background: #ffd4d4;
+        color: #a30000;
+    }
+</style>
+</head>
+<body>
+<header></header>
+<div class="card">
+    <h2 id="event"></h2>
+
+    <label>Date :</label>
+    <input id="dateInput" placeholder="Ex : 28 juin 1914">
+
+    <label>Texte (avec mots-clés) :</label>
+    <textarea id="textInput" rows="4" placeholder="Écris un court texte contenant les mots-clés obligatoires"></textarea>
+
+    <button onclick="check()">Valider</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+/* ========================================================
+   Quiz Première Guerre mondiale – We Revise
+   ======================================================== */
+
+const events = [
+    {
+        titre: "Attentat de Sarajevo",
+        date: "28 juin 1914",
+        keywords: ["archiduc", "assass"]
+    },
+    {
+        titre: "Début de la Première Guerre mondiale",
+        date: "3 août 1914",
+        keywords: ["allemagne", "france"]
+    },
+    {
+        titre: "Bataille de la Marne",
+        date: "septembre 1914",
+        keywords: ["40 km", "paris", "joffre"]
+    },
+    {
+        titre: "Génocide Arménien",
+        date: "avril 1915 - juillet 1916",
+        keywords: ["tur", "armén", "1 200 000"]
+    },
+    {
+        titre: "Bataille de Verdun",
+        date: "février - décembre 1916",
+        keywords: ["tranch", "700 000"]
+    },
+    {
+        titre: "Entrée en guerre des États-Unis",
+        date: "avril 1917",
+        keywords: ["triple entente", "isolation"]
+    },
+    {
+        titre: "Révolutions russes",
+        date: "février - octobre 1917",
+        keywords: ["tsar", "nicolas", "lénine", "bolchév"]
+    },
+    {
+        titre: "Traité de Brest-Litovsk",
+        date: "mars 1918",
+        keywords: ["empires centraux", "russ"]
+    },
+    {
+        titre: "Armistice – Rethondes",
+        date: "11 novembre 1918",
+        keywords: ["allemagne", "fin"]
+    },
+    {
+        titre: "Traité de Versailles",
+        date: "28 juin 1919",
+        keywords: ["allemagne", "responsable", "condamn", "payer", "dommag", "indemn"]
+    }
+];
+
+let index = 0;
+
+function normalize(str) {
+    return str.toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+}
+
+function loadEvent() {
+    document.getElementById("event").textContent = events[index].titre;
+    document.getElementById("dateInput").value = "";
+    document.getElementById("textInput").value = "";
+    document.getElementById("result").innerHTML = "";
+}
+
+function check() {
+    const date = document.getElementById("dateInput").value.trim();
+    const text = normalize(document.getElementById("textInput").value);
+    const result = document.getElementById("result");
+
+    const ev = events[index];
+
+    let ok = true;
+    let messages = [];
+
+    // Vérification date exacte
+    if (normalize(date) !== normalize(ev.date)) {
+        ok = false;
+        messages.push("La date est incorrecte.");
+    }
+
+    // Vérification mots-clés
+    ev.keywords.forEach(k => {
+        if (!text.includes(normalize(k))) {
+            ok = false;
+            messages.push("Il manque le mot-clé : " + k);
+        }
+    });
+
+    if (ok) {
+        result.className = "result ok";
+        result.textContent = "✔️ Bonne réponse !";
+
+        setTimeout(() => {
+            index++;
+            if (index < events.length) loadEvent();
+            else {
+                result.textContent = "🎉 Quiz terminé ! Bravo !";
+            }
+        }, 1200);
+
+    } else {
+        result.className = "result bad";
+        result.innerHTML = "❌ Réponse incorrecte :<br>" + messages.join("<br>");
+    }
+}
+
+loadEvent();
+</script>
+<footer></footer>
+<script src="header-footer.js"></script>
+<script src="analytics.js"></script>
+</body>
+</html>

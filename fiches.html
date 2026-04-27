@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Revise — Fiches</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="fiches">
+
+    <!-- HEADER dynamique -->
+    <header></header>
+
+    <div class="page-container">
+        <main>
+            <h2 id="chapter-title">Fiches</h2>
+
+            <div class="fiche-list"></div>
+
+            <button class="btn" id="add-fiche-btn">+ Importer une fiche</button>
+        </main>
+    </div>
+
+    <!-- FOOTER dynamique -->
+    <footer></footer>
+   
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="header-footer.js"></script>
+<script src="app.js"></script>
+
+
+    <script>
+        // Gestion du bouton "Importer une fiche"
+        document.addEventListener("DOMContentLoaded", () => {
+            const chapter = JSON.parse(localStorage.getItem("currentChapter"));
+            document.getElementById("chapter-title").textContent = chapter.name;
+
+            document.getElementById("add-fiche-btn").onclick = async () => {
+                const name = prompt("Nom de la fiche (un seul mot): Il est possible que la fenêtre de téléchargment ne s'ouvre pas après que avez cliqué sur le bouton. N'hésitez à réessayer plusieurs fois sans accents ni espaces.");
+                if (!name) return;
+
+                const input = document.createElement("input");
+                input.type = "file";
+                input.accept = ".pdf,.png,.jpeg,.jpg";
+
+                input.onchange = async () => {
+                    const file = input.files[0];
+                    if (!file) return;
+
+                    const uploaded = await uploadFicheToStorage(chapter.id, file);
+                    if (uploaded.error) {
+                        alert("Erreur lors de l’upload. Veillez à ce que le nom du fichier que vous voulez importez (et non pas de la fiche) soit composé d’un seul mot, sans espaces ni caractères spéciaux, ni accents.");
+                        return;
+                    }
+
+                    await insertFiche(chapter.id, name, uploaded.url, uploaded.type);
+                    loadFiches(chapter.id);
+                };
+
+                input.click();
+            };
+        });
+    </script>
+
+<script src="analytics.js"></script>
+</body>
+</html>

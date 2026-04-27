@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Revise — Matières</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="subjects">
+
+    <!-- HEADER dynamique -->
+    <header></header>
+
+    <div class="page-container">
+        <main>
+            <section class="hero-v5" id="hero-v5">
+            <h1 class="hero-title">We Revise</h1>
+            <p class="hero-subtitle">
+            We Revise est une plateforme collaborative où les élèves partagent leurs fiches de révision 
+            (PDF, JPEG, PNG) — gratuitement et sans créer de compte.
+             </p>
+             <button id="hero-close" class="hero-btn">Commencer</button>
+            </section>
+
+            <h2>Choisis ta matière</h2>
+            <div id="subjects-list" class="subjects-grid"></div>
+            <p id="brevet-info" class="brevet-info">Les deux matières scientifiques retenues pour le brevet 2026 seront annoncées le 29 avril.</p>
+            <p id="countdown" class="countdown"></p>
+        </main>
+    </div>
+
+    <!-- FOOTER dynamique -->
+    <footer></footer>
+    
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="header-footer.js"></script>
+<script src="app.js"></script>
+<script src="analytics.js"></script>
+</body>
+</html>

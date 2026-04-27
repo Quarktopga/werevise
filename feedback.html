@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Revise — Feedback</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="feedback">
+
+    <!-- HEADER dynamique -->
+    <header></header>
+
+    <div class="page-container">
+        <main>
+            <h2>Envoyer un feedback</h2>
+
+            <p style="margin-bottom:15px;color:#555;">
+                Ton message sera lu pour améliorer We Revise.  
+                Aucun compte, aucune donnée personnelle.
+            </p>
+
+            <textarea id="feedback-text" maxlength="300" placeholder="Écris ton message (max 300 caractères)"></textarea>
+
+            <div style="margin-top:15px;">
+                <button class="btn" id="send-feedback-btn">Envoyer</button>
+            </div>
+
+            <div id="feedback-status" style="margin-top:20px;"></div>
+        </main>
+    </div>
+
+    <!-- FOOTER dynamique -->
+    <footer></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="header-footer.js"></script>
+<script src="feedback.js"></script>
+
+
+<script src="analytics.js"></script>
+</body>
+</html>
