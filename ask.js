@@ -107,7 +107,7 @@ Elle permet d’ajouter des chapitres et des fiches dans chaque matière, sans c
 
 Le but est de centraliser des contenus clairs, organisés et accessibles à tous.  
 Tu peux découvrir les matières ici :
-→ /werevise/index.html`
+→ /index.html`
     ]
 },
 
@@ -122,7 +122,7 @@ Ils ne servent ni à tracer les utilisateurs, ni à établir des profils, ni à 
 Aucune donnée personnelle n’est collectée ou transmise à des services externes.
 
 Tu peux consulter les détails complets ici :
-→ /werevise/cgu.html`
+→ /cgu.html`
     ]
 },
 
@@ -136,10 +136,10 @@ Tu peux consulter les détails complets ici :
 Elles sont rédigées pour être simples, transparentes et adaptées à un usage scolaire.
 
 Tu peux les consulter ici :
-→ /werevise/cgu.html
+→ /cgu.html
 
 Les mentions légales sont disponibles ici :
-→ /werevise/mentions-legales.html`
+→ /mentions-legales.html`
     ]
 },
 
@@ -192,7 +192,7 @@ Une fois le nom validé par regulateur.js, le chapitre apparaît immédiatement 
 Chaque matière peut être enrichie librement par les utilisateurs.
 
 Tu peux accéder à la liste complète ici :
-→ /werevise/index.html`
+→ /index.html`
     ]
 },
 
@@ -206,7 +206,7 @@ Tu peux accéder à la liste complète ici :
 Les messages sont anonymes et peuvent être lus pour améliorer la plateforme.
 
 Tu peux y accéder ici :
-→ /werevise/feedback.html`
+→ /feedback.html`
     ]
 },
 
@@ -220,7 +220,7 @@ Tu peux y accéder ici :
 Elle évoluera progressivement avec de nouveaux formats et de nouvelles mécaniques d’apprentissage.
 
 Accéder aux entraînements :
-→ /werevise/entrainement.html`
+→ /entrainement.html`
     ]
 },
 
@@ -315,6 +315,7 @@ function linkifyResponse() {
 
     const html = raw
         .replace(/(\/[a-zA-Z0-9\-]+\.html)/g, (match) => {
+             const full = `/werevise${match}`;
             return `<a href="${match}" class="ask-link">${match}</a>`;
         });
 
