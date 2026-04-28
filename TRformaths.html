@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+</title>We Revise – Formules de périmètre, aire et volume</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<style>
+/* Reset léger */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
+
+/* Mise en page générale */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: linear-gradient(135deg, #2b6cb0, #3182ce);
+  color: #fff;
+  padding: 1.2rem 1rem;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.header p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.container {
+  flex: 1;
+  width: 100%;
+  max-width: 800px;
+  margin: 1rem auto 2rem;
+  padding: 0 1rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1.2rem 1.4rem;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  margin-bottom: 1rem;
+}
+
+.card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Boutons */
+.btn-primary,
+.btn-secondary {
+  border: none;
+  border-radius: 999px;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s ease;
+}
+
+.btn-primary {
+  background: #3182ce;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(49, 130, 206, 0.4);
+}
+
+.btn-primary:hover {
+  background: #2b6cb0;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(49, 130, 206, 0.5);
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #1a202c;
+}
+
+.btn-secondary:hover {
+  background: #cbd5e0;
+  transform: translateY(-1px);
+}
+
+/* Quiz */
+#question-header {
+  margin-bottom: 0.8rem;
+}
+
+#question-title {
+  font-size: 1.05rem;
+  margin-bottom: 0.2rem;
+}
+
+#question-progress {
+  font-size: 0.85rem;
+  color: #4a5568;
+}
+
+#question-text {
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+}
+
+/* Réponses */
+#answers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.answer-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 0.6rem;
+  border: 1px solid #e2e8f0;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.answer-option input[type="radio"] {
+  margin-top: 0.15rem;
+}
+
+.answer-option span {
+  font-size: 0.95rem;
+}
+
+.answer-option:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+}
+
+/* Résultats */
+#score-text {
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+#corrections {
+  font-size: 0.9rem;
+}
+
+.correction-item {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.correction-item h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.correction-item p {
+  margin-bottom: 0.15rem;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 0.8rem 1rem 1.2rem;
+  font-size: 0.8rem;
+  color: #718096;
+}
+
+/* Utilitaires */
+.hidden {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 1.2rem;
+  }
+
+  .card {
+    padding: 1rem 1.1rem;
+  }
+
+  #question-title {
+    font-size: 1rem;
+  }
+}
+</style>
+</head>
+
+<body>
+<header></header>
+
+<main class="container">
+  <section id="quiz-intro" class="card">
+    <h2>Instructions</h2>
+    <p>
+      Réponds aux questions sur les formules de périmètre, d’aire et de volume.
+      À la fin, tu verras ton score et les corrections.
+    </p>
+    <button id="start-btn" class="btn-primary">Commencer le quiz</button>
+  </section>
+
+  <section id="quiz-section" class="card hidden">
+    <div id="question-header">
+      <h2 id="question-title"></h2>
+      <p id="question-progress"></p>
+    </div>
+
+    <div id="question-text"></div>
+
+    <form id="answers-container"></form>
+
+    <div class="actions">
+      <button id="next-btn" class="btn-primary" type="button">Question suivante</button>
+    </div>
+  </section>
+
+  <section id="result-section" class="card hidden">
+    <h2>Résultats</h2>
+    <p id="score-text"></p>
+    <div id="corrections"></div>
+    <button id="restart-btn" class="btn-secondary">Recommencer</button>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>We Revise – Géométrie : périmètre, aire, volume</p>
+</footer>
+
+<script>
+// Questions sur périmètre, aire et volume
+const questions = [
+  {
+    question: "Quelle est la formule du périmètre d’un rectangle de longueur L et de largeur l ?",
+    choices: ["P = L × l", "P = 2L + 2l", "P = L + l", "P = 4L"],
+    correctIndex: 1,
+    explanation: "Le périmètre d’un rectangle est P = 2L + 2l."
+  },
+  {
+    question: "Quelle est la formule de l’aire d’un triangle de base b et de hauteur h ?",
+    choices: ["A = b × h", "A = (b × h) ÷ 2", "A = 2b × h", "A = (b + h) ÷ 2"],
+    correctIndex: 1,
+    explanation: "L’aire d’un triangle est A = (b × h) ÷ 2."
+  },
+  {
+    question: "Quelle est la formule de l’aire d’un disque de rayon r ?",
+    choices: ["A = 2πr", "A = πr²", "A = πd", "A = 4πr²"],
+    correctIndex: 1,
+    explanation: "L’aire d’un disque est A = πr²."
+  },
+  {
+    question: "Quelle est la formule du volume d’un pavé droit de dimensions L, l et h ?",
+    choices: ["V = L + l + h", "V = 2(L + l + h)", "V = L × l × h", "V = L × l ÷ h"],
+    correctIndex: 2,
+    explanation: "Le volume d’un pavé droit est V = L × l × h."
+  },
+  {
+    question: "Quelle est la formule du volume d’un cylindre de rayon r et de hauteur h ?",
+    choices: ["V = πr²h", "V = 2πrh", "V = πr²", "V = (πr²h) ÷ 2"],
+    correctIndex: 0,
+    explanation: "Le volume d’un cylindre est V = πr²h."
+  },
+  {
+    question: "Quelle est la formule du périmètre d’un cercle de rayon r ?",
+    choices: ["P = πr²", "P = 2πr", "P = πd²", "P = 4r"],
+    correctIndex: 1,
+    explanation: "Le périmètre d’un cercle est P = 2πr."
+  },
+  {
+    question: "Quelle est la formule de l’aire d’un rectangle de longueur L et de largeur l ?",
+    choices: ["A = L + l", "A = 2L + 2l", "A = L × l", "A = (L × l) ÷ 2"],
+    correctIndex: 2,
+    explanation: "L’aire d’un rectangle est A = L × l."
+  },
+  {
+    question: "Quelle est la formule du volume d’une sphère de rayon r ?",
+    choices: ["V = 4πr²", "V = (4/3)πr³", "V = πr³", "V = (1/3)πr²"],
+    correctIndex: 1,
+    explanation: "Le volume d’une sphère est V = (4/3)πr³."
+  }
+];
+
+let currentIndex = 0;
+let userAnswers = [];
+
+// Sélecteurs
+const introSection = document.getElementById("quiz-intro");
+const quizSection = document.getElementById("quiz-section");
+const resultSection = document.getElementById("result-section");
+
+const startBtn = document.getElementById("start-btn");
+const nextBtn = document.getElementById("next-btn");
+const restartBtn = document.getElementById("restart-btn");
+
+const questionTitle = document.getElementById("question-title");
+const questionProgress = document.getElementById("question-progress");
+const questionText = document.getElementById("question-text");
+const answersContainer = document.getElementById("answers-container");
+
+const scoreText = document.getElementById("score-text");
+const correctionsContainer = document.getElementById("corrections");
+
+// Démarrer le quiz
+startBtn.addEventListener("click", () => {
+  introSection.classList.add("hidden");
+  resultSection.classList.add("hidden");
+  quizSection.classList.remove("hidden");
+
+  currentIndex = 0;
+  userAnswers = [];
+  renderQuestion();
+});
+
+// Bouton question suivante
+nextBtn.addEventListener("click", () => {
+  const selected = document.querySelector("input[name='answer']:checked");
+  if (!selected) {
+    alert("Choisis une réponse avant de continuer.");
+    return;
+  }
+
+  const answerIndex = parseInt(selected.value, 10);
+  userAnswers[currentIndex] = answerIndex;
+
+  if (currentIndex < questions.length - 1) {
+    currentIndex++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+});
+
+// Recommencer
+restartBtn.addEventListener("click", () => {
+  resultSection.classList.add("hidden");
+  introSection.classList.remove("hidden");
+});
+
+// Afficher une question
+function renderQuestion() {
+  const q = questions[currentIndex];
+
+  questionTitle.textContent = "Question " + (currentIndex + 1);
+  questionProgress.textContent = "Question " + (currentIndex + 1) + " sur " + questions.length;
+  questionText.textContent = q.question;
+
+  answersContainer.innerHTML = "";
+
+  q.choices.forEach((choice, index) => {
+    const label = document.createElement("label");
+    label.className = "answer-option";
+
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = "answer";
+    input.value = index;
+
+    if (userAnswers[currentIndex] === index) input.checked = true;
+
+    const span = document.createElement("span");
+    span.textContent = choice;
+
+    label.appendChild(input);
+    label.appendChild(span);
+    answersContainer.appendChild(label);
+  });
+
+  nextBtn.textContent = currentIndex === questions.length - 1
+    ? "Voir les résultats"
+    : "Question suivante";
+}
+
+// Afficher les résultats
+function showResults() {
+  quizSection.classList.add("hidden");
+  resultSection.classList.remove("hidden");
+
+  let score = 0;
+  correctionsContainer.innerHTML = "";
+
+  questions.forEach((q, index) => {
+    const userAnswer = userAnswers[index];
+    const isCorrect = userAnswer === q.correctIndex;
+    if (isCorrect) score++;
+
+    const item = document.createElement("div");
+    item.className = "correction-item";
+
+    const title = document.createElement("h3");
+    title.textContent = "Question " + (index + 1) + " : " + q.question;
+
+    const userP = document.createElement("p");
+    userP.textContent = "Ta réponse : " + (userAnswer != null ? q.choices[userAnswer] : "aucune réponse");
+    userP.style.color = isCorrect ? "#2f855a" : "#c53030";
+
+    const correctP = document.createElement("p");
+    correctP.textContent = "Bonne réponse : " + q.choices[q.correctIndex];
+
+    const explP = document.createElement("p");
+    explP.textContent = "Explication : " + q.explanation;
+
+    item.appendChild(title);
+    item.appendChild(userP);
+    item.appendChild(correctP);
+    item.appendChild(explP);
+
+    correctionsContainer.appendChild(item);
+  });
+
+  scoreText.textContent = `Tu as obtenu ${score} / ${questions.length}.`;
+}
+</script>
+
+</body>
+</html>
