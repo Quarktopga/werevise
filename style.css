@@ -489,6 +489,16 @@ textarea:focus {
     letter-spacing: 1px;
     transition: font-size 0.3s ease;
 }
+/* Lien dans le h1 (retour accueil) */
+.title-link {
+    text-decoration: none;   /* enlève le soulignement */
+    color: inherit;          /* garde le dégradé du h1 */
+    cursor: pointer;
+}
+
+.title-link:hover {
+    opacity: 0.9;            /* léger effet hover (optionnel) */
+}
 
 /* Liens de navigation */
 .wr-header nav a {
