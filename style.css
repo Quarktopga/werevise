@@ -202,7 +202,7 @@ h2 {
     transform: translate(-50%, -50%);
     opacity: 0;
     pointer-events: none;
-    animation: firework 1.2s ease-out forwards;
+    animation: firework 4s ease-out forwards;
 }
 
 @keyframes firework {
