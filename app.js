@@ -88,7 +88,7 @@ async function loadChapters(subjectId) {
 }
 
 /* ============================================================
-   4. Fonctions : Création d’un chapitre
+   4. Fonctions : Création d'un chapitre
    ============================================================ */
 
 async function createChapter(subjectId, name) {
@@ -145,7 +145,7 @@ async function loadFiches(chapterId) {
 }
 
 /* ============================================================
-   6. Fonctions : Import d’une fiche (upload Storage)
+   6. Fonctions : Import d'une fiche (upload Storage)
    ============================================================ */
 
 async function uploadFiche(chapterId, file, name) {
@@ -159,11 +159,11 @@ async function uploadFiche(chapterId, file, name) {
 
     if (uploadError) {
         console.error(uploadError);
-        alert("Erreur lors de l’upload du fichier.");
+        alert("Erreur lors de l'upload du fichier.");
         return;
     }
 
-    // Récupération de l’URL publique
+    // Récupération de l'URL publique
     const { data: urlData } = client.storage
         .from("fiches")
         .getPublicUrl(filePath);
@@ -177,7 +177,7 @@ async function uploadFiche(chapterId, file, name) {
 
     if (insertError) {
         console.error(insertError);
-        alert("Erreur lors de l’enregistrement de la fiche.");
+        alert("Erreur lors de l'enregistrement de la fiche.");
         return;
     }
 
@@ -237,37 +237,9 @@ document.addEventListener("DOMContentLoaded", () => {
         loadFiches(chapter.id);
     }
 });
+
 // ============================
-// COMPTE À REBOURS BREVET 2026
-// ============================
-
-function startCountdown() {
-    const targetDate = new Date("2026-04-29T10:00:00");
-
-    function updateCountdown() {
-        const now = new Date();
-        const diff = targetDate - now;
-
-        if (diff <= 0) {
-            document.getElementById("countdown").textContent =
-                "Annonce des matières scientifiques aujourd’hui !";
-            return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-
-        document.getElementById("countdown").textContent =
-            `Plus que ${days} jour ${hours} heures`;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000 * 60 * 10); // mise à jour toutes les 10 min
-}
-
-document.addEventListener("DOMContentLoaded", startCountdown);
-// ============================
-//Hero section : animation d’introduction
+// Hero section : animation d'introduction
 // ============================
 document.addEventListener("DOMContentLoaded", () => {
     const hero = document.getElementById("hero-v5");
@@ -275,28 +247,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const h2 = document.querySelector("h2");
     const subjects = document.getElementById("subjects-list");
-    const brevetInfo = document.getElementById("brevet-info");
-    const countdown = document.getElementById("countdown");
 
     // 👉 Si l'utilisateur a déjà vu le Hero dans CETTE session
     if (sessionStorage.getItem("heroSeen") === "1") {
         hero.classList.add("hidden");
         h2.classList.remove("hidden");
         subjects.classList.remove("hidden");
-        brevetInfo.classList.remove("hidden");
-        countdown.classList.remove("hidden");
         return;
     }
 
     // Masquer tout le contenu sous le Hero
     h2.classList.add("hidden");
     subjects.classList.add("hidden");
-    brevetInfo.classList.add("hidden");
-    countdown.classList.add("hidden");
 
     closeBtn.addEventListener("click", () => {
 
-        // 👉 Le Hero ne reviendra plus tant que l’onglet reste ouvert
+        // 👉 Le Hero ne reviendra plus tant que l'onglet reste ouvert
         sessionStorage.setItem("heroSeen", "1");
 
         hero.style.opacity = "0";
@@ -308,9 +274,6 @@ document.addEventListener("DOMContentLoaded", () => {
             // Réafficher le contenu
             h2.classList.remove("hidden");
             subjects.classList.remove("hidden");
-            brevetInfo.classList.remove("hidden");
-            countdown.classList.remove("hidden");
         }, 300);
     });
 });
-
