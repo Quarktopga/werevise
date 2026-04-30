@@ -100,7 +100,7 @@ Si tu veux en savoir plus sur une page ou une fonctionnalité, je suis là.`
 {
     id: "plateforme",
     keywords: ["we revise", "plateforme", "site", "projet", "objectif", "but", "presentation", "présentation"],
-    patterns: ["we revise", "plateforme"],
+    patterns: ["we revise", "plateforme", "ça marche", "ca marche"],
     answers: [
         `We Revise est une plateforme de révision collaborative pensée pour les élèves. 
 Elle permet d’ajouter des chapitres et des fiches dans chaque matière, sans compte et avec une interface simple et rapide.
