@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>We Revise — Fiches</title>
+    <title>We Revise &mdash; Fiches</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -23,50 +23,66 @@
         </main>
     </div>
 
+    <div id="modal-import" class="custom-modal" role="dialog" aria-modal="true" aria-labelledby="modal-import-title">
+        <div class="custom-modal-content">
+            <button class="modal-close" type="button" aria-label="Fermer" onclick="closeModal('modal-import')">&times;</button>
+
+            <h3 id="modal-import-title">Importer une fiche</h3>
+
+            <label class="modal-field" for="ficheFiles">
+                <span>Fichier</span>
+                <input id="ficheFiles" type="file" accept=".pdf,.png,.jpeg,.jpg" multiple>
+            </label>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" type="button" onclick="closeModal('modal-import')">Annuler</button>
+                <button class="btn" type="button" onclick="submitImportFiches()">Importer</button>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER dynamique -->
     <footer></footer>
-   
 
+    <!-- ============================
+     MODALE DE VOTE (5 ETOILES)
+     ============================ -->
+    <div id="vote-modal" class="vote-modal">
+        <div class="vote-modal-content">
+            <button class="vote-close">&times;</button>
+
+            <h3 class="vote-title">Noter cette fiche</h3>
+
+            <div class="vote-stars">
+                <span class="vote-star" data-value="1">&#9733;</span>
+                <span class="vote-star" data-value="2">&#9733;</span>
+                <span class="vote-star" data-value="3">&#9733;</span>
+                <span class="vote-star" data-value="4">&#9733;</span>
+                <span class="vote-star" data-value="5">&#9733;</span>
+            </div>
+
+            <p class="vote-hint">Clique sur une &eacute;toile pour enregistrer ta note</p>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
-<script src="header-footer.js"></script>
-<script src="app.js"></script>
-
+    <script src="supabase.js"></script>
+    <script src="header-footer.js"></script>
+    <script src="app.js"></script>
 
     <script>
         // Gestion du bouton "Importer une fiche"
         document.addEventListener("DOMContentLoaded", () => {
             const chapter = JSON.parse(localStorage.getItem("currentChapter"));
-            document.getElementById("chapter-title").textContent = chapter.name;
 
-            document.getElementById("add-fiche-btn").onclick = async () => {
-                const name = prompt("Nom de la fiche (un seul mot): Il est possible que la fenêtre de téléchargment ne s'ouvre pas après que avez cliqué sur le bouton. N'hésitez à réessayer plusieurs fois sans accents ni espaces.");
-                if (!name) return;
+            if (chapter) {
+                document.getElementById("chapter-title").textContent = chapter.name;
+            }
 
-                const input = document.createElement("input");
-                input.type = "file";
-                input.accept = ".pdf,.png,.jpeg,.jpg";
-
-                input.onchange = async () => {
-                    const file = input.files[0];
-                    if (!file) return;
-
-                    const uploaded = await uploadFicheToStorage(chapter.id, file);
-                    if (uploaded.error) {
-                        alert("Erreur lors de l’upload. Veillez à ce que le nom du fichier que vous voulez importez (et non pas de la fiche) soit composé d’un seul mot, sans espaces ni caractères spéciaux, ni accents.");
-                        return;
-                    }
-
-                    await insertFiche(chapter.id, name, uploaded.url, uploaded.type);
-                    loadFiches(chapter.id);
-                };
-
-                input.click();
-            };
+            document.getElementById("add-fiche-btn").onclick = () => openModal("modal-import");
         });
     </script>
 
-<script src="analytics.js"></script>
+    <script src="analytics.js"></script>
 </body>
 </html>

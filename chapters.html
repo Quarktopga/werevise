@@ -22,7 +22,24 @@
             <button class="btn" id="add-chapter-btn">+ Ajouter un chapitre</button>
         </main>
     </div>
-    
+
+    <div id="modal-create" class="custom-modal" role="dialog" aria-modal="true" aria-labelledby="modal-create-title">
+        <div class="custom-modal-content">
+            <button class="modal-close" type="button" aria-label="Fermer" onclick="closeModal('modal-create')">&times;</button>
+
+            <h3 id="modal-create-title">Nouveau chapitre</h3>
+
+            <label class="modal-field" for="chapterName">
+                <span>Nom du chapitre</span>
+                <input id="chapterName" type="text" autocomplete="off" placeholder="Ex : La Premi&egrave;re Guerre mondiale">
+            </label>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" type="button" onclick="closeModal('modal-create')">Annuler</button>
+                <button class="btn" type="button" onclick="submitCreateChapter()">Cr&eacute;er</button>
+            </div>
+        </div>
+    </div>
 
     <!-- FOOTER dynamique -->
     <footer></footer>
@@ -37,14 +54,11 @@
         // Gestion du bouton "Ajouter un chapitre"
         document.addEventListener("DOMContentLoaded", () => {
             const subject = JSON.parse(localStorage.getItem("currentSubject"));
-            document.getElementById("subject-title").textContent = subject.name;
+            if (subject) {
+                document.getElementById("subject-title").textContent = subject.name;
+            }
 
-            document.getElementById("add-chapter-btn").onclick = async () => {
-                const name = prompt("Nom du chapitre :");
-                if (!name) return;
-
-                await createChapter(subject.id, name);
-            };
+            document.getElementById("add-chapter-btn").onclick = () => openModal("modal-create");
         });
     </script>
 
